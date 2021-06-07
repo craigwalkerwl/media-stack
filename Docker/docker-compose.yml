@@ -71,7 +71,7 @@ services:
       - /data/usenet:/data/usenet:rw
   overseerr:
     container_name: overseerr
-    image: sctx/overseerr:latest
+    image: ghcr.io/linuxserver/overseerr:latest
     restart: unless-stopped
     logging:
       driver: json-file
