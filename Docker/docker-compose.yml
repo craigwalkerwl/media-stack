@@ -68,7 +68,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/sabnzbd:/config
-      - /data/usenet:/data/usenet
+      - /data/usenet:/downloads
   overseerr:
     container_name: overseerr
     image: ghcr.io/linuxserver/overseerr:latest
