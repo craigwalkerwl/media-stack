@@ -19,7 +19,7 @@ services:
       - /data:/data
   sonarr:
     container_name: sonarr
-    image: ghcr.io/linuxserver/sonarr:nightly
+    image: ghcr.io/linuxserver/sonarr:latest
     restart: unless-stopped
     logging:
       driver: json-file
