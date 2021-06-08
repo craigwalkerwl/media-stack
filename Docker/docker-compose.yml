@@ -2,7 +2,7 @@ version: "3.2"
 services:
   radarr:
     container_name: radarr
-    image: ghcr.io/hotio/radarr:latest
+    image: ghcr.io/linuxserver/radarr:latest
     restart: unless-stopped
     logging:
       driver: json-file
@@ -19,7 +19,7 @@ services:
       - /data:/data
   sonarr:
     container_name: sonarr
-    image: ghcr.io/hotio/sonarr:nightly
+    image: ghcr.io/linuxserver/sonarr:nightly
     restart: unless-stopped
     logging:
       driver: json-file
@@ -34,26 +34,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/sonarr:/config
       - /data:/data
-  bazarr:
-    container_name: bazarr
-    image: ghcr.io/hotio/bazarr:nightly
-    restart: unless-stopped
-    logging:
-      driver: json-file
-    network_mode: bridge
-    ports:
-      - 6767:6767
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/bazarr:/config
-      - /data/media:/data/media
   sabnzbd:
     container_name: sabnzbd
-    image: ghcr.io/hotio/sabnzbd:latest
+    image: ghcr.io/linuxserver/sabnzbd:latest
     restart: unless-stopped
     logging:
       driver: json-file
