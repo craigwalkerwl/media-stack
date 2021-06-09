@@ -1,70 +1,88 @@
 version: "3.2"
 services:
   radarr:
-    container_name: radarr
+    #container_name: radarr
     image: ghcr.io/linuxserver/radarr:latest
-    restart: unless-stopped
     logging:
       driver: json-file
-    network_mode: bridge
+    networks:
+      - backend
     ports:
       - 7878:7878
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Europe/London
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/radarr:/config
-      - /data:/data
+      - C:/media-stack/radarrconfig:/config
+      - C:/media-stack/movies:/movies
+      - C:/media-stack/usenet:/downloads
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
   sonarr:
-    container_name: sonarr
+    #container_name: sonarr
     image: ghcr.io/linuxserver/sonarr:latest
-    restart: unless-stopped
     logging:
       driver: json-file
-    network_mode: bridge
+    networks:
+      - backend
     ports:
       - 8989:8989
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Europe/London
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/sonarr:/config
-      - /data:/data
+      - C:/media-stack/sonarrconfig:/config
+      - C:/media-stack/tvseries:/tv
+      - C:/media-stack/usenet:/downloads
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
   sabnzbd:
-    container_name: sabnzbd
+    #container_name: sabnzbd
     image: ghcr.io/linuxserver/sabnzbd:latest
-    restart: unless-stopped
     logging:
       driver: json-file
-    network_mode: bridge
+    networks:
+      - backend
     ports:
-      - 8080:8080
+      - 8088:8080
       - 9090:9090
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Europe/London
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/sabnzbd:/config
-      - /data/usenet:/downloads
+      - C:/media-stack/sabnzbdconfig:/config
+      - C:/media-stack/usenet:/downloads
+      - C:/media-stack/usenet-incomplete:/incomplete-downloads
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
   overseerr:
-    container_name: overseerr
+    #container_name: overseerr
     image: ghcr.io/linuxserver/overseerr:latest
-    restart: unless-stopped
     logging:
       driver: json-file
-    network_mode: bridge
+    networks:
+      - backend
     ports:
       - 5055:5055
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=0
+      - PGID=0
       - TZ=Europe/London
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/overseerr:/config
+      - C:/media-stack/overseerrconfig:/config
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  backend:
