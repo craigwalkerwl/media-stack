@@ -1,12 +1,12 @@
 version: "3.2"
+
 services:
   radarr:
-    #container_name: radarr
     image: ghcr.io/linuxserver/radarr:latest
     logging:
       driver: json-file
     networks:
-      - backend
+      backend:
     ports:
       - 7878:7878
     environment:
@@ -22,12 +22,11 @@ services:
       restart_policy:
         condition: on-failure
   sonarr:
-    #container_name: sonarr
     image: ghcr.io/linuxserver/sonarr:latest
     logging:
       driver: json-file
     networks:
-      - backend
+      backend:
     ports:
       - 8989:8989
     environment:
@@ -43,12 +42,11 @@ services:
       restart_policy:
         condition: on-failure
   sabnzbd:
-    #container_name: sabnzbd
     image: ghcr.io/linuxserver/sabnzbd:latest
     logging:
       driver: json-file
     networks:
-      - backend
+      backend:
     ports:
       - 8088:8080
       - 9090:9090
@@ -65,12 +63,11 @@ services:
       restart_policy:
         condition: on-failure
   overseerr:
-    #container_name: overseerr
     image: ghcr.io/linuxserver/overseerr:latest
     logging:
       driver: json-file
     networks:
-      - backend
+      backend:
     ports:
       - 5055:5055
     environment:
